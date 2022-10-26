@@ -39,6 +39,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/DashboardView.vue"),
   },
+  {
+    path: "/admin/financial&Expense",
+    name: "Financial",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/FinancialExpense.vue"),
+  },
   // vue-oil/src/views/ReportOfEvents.vue
 ];
 
