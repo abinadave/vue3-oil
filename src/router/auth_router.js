@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import NProgress from "nprogress";
 const routes = [
   {
     path: "/",
@@ -51,6 +52,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from) => {
+  // ...
+  // explicitly return false to cancel the navigation
+  NProgress.start();
+});
+
+router.afterEach((to, from) => {
+  // ...
+  // explicitly return false to cancel the navigation
+  setTimeout(() => {
+    NProgress.done();
+  }, 1000);
 });
 
 export default router;

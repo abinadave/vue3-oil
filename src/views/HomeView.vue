@@ -86,12 +86,8 @@
   </div>
 </template>
 
-<script setup>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
-</script>
+<script setup></script>
 <style scoped>
-@import "@/assets/assets-home/css/styles.css";
 .logo {
   width: 30px;
   margin-right: 10px;
