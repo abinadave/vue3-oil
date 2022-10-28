@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap";
 
 import App from "./App.vue";
@@ -8,6 +9,7 @@ import AppAuth from "./AppAuth.vue";
 import router from "./router";
 import auth_router from "@/router/auth_router.js";
 import store from "./store";
+import "nprogress/nprogress.css";
 // import "@/scss/main.scss";
 
 // createApp(App).use(store).use(router).mount("#app");
@@ -24,7 +26,7 @@ apiClient({
     // console.log(response);
     if (response.status === 200) {
       createApp(AppAuth).use(store).use(auth_router).mount("#app");
-      auth_router.push({ name: "DashboardAdmin" });
+      auth_router.push({ name: "Logbook" });
       console.log("Successfully logged in");
     }
   })
