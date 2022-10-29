@@ -1,6 +1,8 @@
 <template>
   <h2 class="title">{{ Header }}</h2>
   <!-- store logbook counter: {{ storeLogbook.count }} -->
+  <!-- id: {{ storeLogbook.getCurrentLogbookId }} -->
+  <!-- updating: {{ updating }} -->
   <form @submit.prevent="onSubmit">
     <div class="mb-3">
       <label class="form-label">Name</label>
@@ -101,7 +103,19 @@
     </div>
     <hr />
     <div class="d-grid gap-2">
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button v-if="updating" class="btn btn-primary" type="submit">
+        Update
+      </button>
+      <button v-else class="btn btn-primary" type="submit">Submit</button>
+
+      <button
+        @click="cancelUpdate"
+        type="button"
+        v-show="updating"
+        class="btn btn-sm btn-info"
+      >
+        Cancel update
+      </button>
     </div>
     <!-- 
     <pre>
@@ -111,10 +125,9 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { useLogbookStore } from "@/store/pinia/logbook";
 import moment from "moment";
-const storeLogbook = useLogbookStore();
 
 const Header = "Logbook Form";
 const Hours = ref(0);
@@ -129,13 +142,76 @@ const form = reactive({
   purpose: "",
 });
 
+//Store for Logbook
+const storeLogbook = useLogbookStore();
+
+/** Watch for current_logbook id changes */
+let logbookId = computed(() => storeLogbook.getCurrentLogbookId);
+let currentLogbook = computed(() => storeLogbook.current_logbook);
+let updating = computed(() => storeLogbook.updating);
+
+watch(logbookId, (newId, oldId) => {
+  //New ID is a Number
+  if (newId) {
+    //setting form values, for updating
+    setFormValues();
+    //set time
+    setFormTime();
+  }
+});
+
+const setFormTime = () => {
+  let time = moment(currentLogbook.value.time, ["h:mm A"]).format("hh:mm");
+  // let isAfter = moment(time, ["h:mm A"]).isAfter("12:00 PM");
+  // console.log(`isBefore: ${isAfter}`);
+  let str = time.split(":");
+  Hours.value = Number(str[0]);
+  Minutes.value = Number(str[1]);
+  let str2 = currentLogbook.value.time.split(":");
+  let startTime = moment({
+    h: str2[0],
+    m: str2[1],
+  });
+
+  let endTime = moment({
+    h: 11,
+    m: 59,
+  });
+  textTime.value = startTime.isBefore(endTime) == true ? "AM" : "PM";
+};
+
+const setFormValues = () => {
+  form.fullname = currentLogbook.value.fullname;
+  form.date = currentLogbook.value.date;
+  form.purpose = currentLogbook.value.purpose;
+};
+
+const cancelUpdate = () => {
+  storeLogbook.$patch({
+    updating: false,
+  });
+  form.fullname = "";
+  form.date = "";
+  form.time = "";
+  form.purpose = "";
+};
+
+/** Onsubmit Form - Save data */
+
 const onSubmit = async () => {
   form.time = getTime();
-  const response = await storeLogbook.dbSaveLogBook(form);
-  if (response.status === 422) {
-    alert("Duplicate name or incomplete fields.");
-  } else if (response.status === 201) {
-    clearForm();
+  if (!updating.value) {
+    const response = await storeLogbook.dbSaveLogBook(form);
+    if (response.status === 422) {
+      alert("Duplicate name or incomplete fields.");
+    } else if (response.status === 201) {
+      storeLogbook.$patch((state) => {
+        state.logbooks.unshift(response.data);
+      });
+      clearForm();
+    }
+  } else {
+    alert("Updating please wait..");
   }
 };
 
@@ -148,6 +224,10 @@ const clearForm = () => {
   Minutes.value = 0;
   document.getElementById("fullname").focus();
 };
+
+/** Onsubmit Form - Save data */
+
+// const current_logbook = storeLogbook.current_logbook;
 
 const getTime = () => {
   let hr = Hours.value < 10 ? `0${Hours.value}` : Hours.value;
