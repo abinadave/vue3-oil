@@ -2,9 +2,16 @@ import { defineStore } from "pinia";
 import apiClient from "@/store/modules/http";
 
 export const useLogbookStore = defineStore("logbook", {
-  state: () => ({ count: 0, name: "Dave", logbooks: [] }),
+  state: () => ({
+    count: 0,
+    name: "Dave",
+    logbooks: [],
+    current_logbook: { id: 0, fullname: "", date: "", time: "", purpose: "" },
+    updating: false,
+  }),
   getters: {
     doubleCount: (state) => state.count * 2,
+    getCurrentLogbookId: (state) => state.current_logbook.id,
   },
   actions: {
     async dbFetchAll() {
@@ -28,6 +35,7 @@ export const useLogbookStore = defineStore("logbook", {
           url: "/api/logbook",
           data: form,
         });
+        // console.log(response.data);
         return response;
       } catch (error) {
         return error.response;

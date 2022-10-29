@@ -1,5 +1,5 @@
 <template>
-  <table class="table text-bg-light p-3">
+  <table class="table table-hover text-bg-light p-3">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -10,7 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(logbook, index) in store.logbooks" :key="index">
+      <tr
+        @click="setCurrentLogBook(logbook)"
+        v-for="(logbook, index) in store.logbooks"
+        :key="index"
+      >
         <th scope="row">1</th>
         <td>{{ logbook.fullname }}</td>
         <td>{{ formatDate(logbook.date) }}</td>
@@ -28,8 +32,17 @@ import moment from "moment";
 const store = useLogbookStore();
 onMounted(async () => {
   const response = await store.dbFetchAll();
-  // console.log(response);
 });
+
+const setCurrentLogBook = (logbook) => {
+  // store.$patch({
+  //   current_logbook: logbook,
+  // });
+  store.$patch((state) => {
+    state.current_logbook = logbook;
+    state.updating = true;
+  });
+};
 
 const formatDate = (date) => {
   return moment(date).format("MMM DD, YYYY");
