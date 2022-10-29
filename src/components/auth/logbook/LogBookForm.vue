@@ -128,8 +128,9 @@
 import { computed, reactive, ref, watch } from "vue";
 import { useLogbookStore } from "@/store/pinia/logbook";
 import moment from "moment";
+import { find } from "lodash-es";
 
-const Header = "Logbook Form";
+const Header = "Logbook";
 const Hours = ref(0);
 const Minutes = ref(0);
 let interval = null;
@@ -211,7 +212,18 @@ const onSubmit = async () => {
       clearForm();
     }
   } else {
-    alert("Updating please wait..");
+    //onUpdate
+    const response = await storeLogbook.dbUpdateLogBook(form);
+    storeLogbook.$patch((state) => {
+      let model = find(state.logbooks, { id: storeLogbook.current_logbook.id });
+      model.fullname = form.fullname;
+      model.date = form.date;
+      model.purpose = form.purpose;
+      clearForm();
+      state.updating = false;
+      // console.log(model);
+    });
+    // alert("Updating please wait..");
   }
 };
 
