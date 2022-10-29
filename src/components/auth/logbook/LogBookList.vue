@@ -1,6 +1,6 @@
 <template>
   <table class="table table-hover text-bg-light p-3">
-    <thead>
+    <thead class="table-dark">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
@@ -29,7 +29,9 @@
 import { onMounted } from "vue";
 import { useLogbookStore } from "@/store/pinia/logbook";
 import moment from "moment";
+
 const store = useLogbookStore();
+
 onMounted(async () => {
   const response = await store.dbFetchAll();
 });
@@ -55,6 +57,6 @@ const formatTime = (time) => {
 
 <style scoped>
 .table {
-  margin-top: 70px;
+  margin-top: 1px;
 }
 </style>

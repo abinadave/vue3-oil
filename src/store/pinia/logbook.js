@@ -14,6 +14,23 @@ export const useLogbookStore = defineStore("logbook", {
     getCurrentLogbookId: (state) => state.current_logbook.id,
   },
   actions: {
+    async dbUpdateLogBook(form) {
+      console.log("hit in dbUpdateLogBook");
+      console.log(form);
+      try {
+        const response = await apiClient({
+          method: "PUT",
+          url: "/api/logbook",
+          data: {
+            form,
+            id: this.current_logbook.id,
+          },
+        });
+        return response;
+      } catch (error) {
+        return error.response;
+      }
+    },
     async dbFetchAll() {
       try {
         const response = await apiClient({
