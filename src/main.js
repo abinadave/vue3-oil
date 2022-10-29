@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-
+import { createPinia } from "pinia";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap";
@@ -17,6 +17,7 @@ import "nprogress/nprogress.css";
 import apiClient from "@/store/modules/api";
 
 const url = "/api/user";
+const pinia = createPinia();
 
 apiClient({
   method: "GET",
@@ -25,7 +26,7 @@ apiClient({
   .then((response) => {
     // console.log(response);
     if (response.status === 200) {
-      createApp(AppAuth).use(store).use(auth_router).mount("#app");
+      createApp(AppAuth).use(store).use(auth_router).use(pinia).mount("#app");
       auth_router.push({ name: "Logbook" });
       console.log("Successfully logged in");
     }

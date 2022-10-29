@@ -3,34 +3,42 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Purpose</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr v-for="(logbook, index) in store.logbooks" :key="index">
         <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
+        <td>{{ logbook.fullname }}</td>
+        <td>{{ formatDate(logbook.date) }}</td>
+        <td>{{ formatTime(logbook.time) }}</td>
+        <td>{{ logbook.purpose }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted } from "vue";
+import { useLogbookStore } from "@/store/pinia/logbook";
+import moment from "moment";
+const store = useLogbookStore();
+onMounted(async () => {
+  const response = await store.dbFetchAll();
+  // console.log(response);
+});
+
+const formatDate = (date) => {
+  return moment(date).format("MMM DD, YYYY");
+};
+
+const formatTime = (time) => {
+  return moment(time, "HH:mm:ss").format("hh:mm A");
+};
+</script>
 
 <style scoped>
 .table {
