@@ -21,7 +21,9 @@
             <a class="nav-link" @click="redirectTo('DashboardAdmin')">Home </a>
             <a class="nav-link" @click="redirectTo('Logbook')">Logs</a>
             <a class="nav-link" @click="redirectTo('Monitoring')">Monitoring</a>
-            <a class="nav-link">Sales list</a>
+            <a class="nav-link" @click="redirectTo('Financial')"
+              >Financial & Expense</a
+            >
             <!-- <a class="nav-link" @click="redirectTo('Reports')">Reports</a> -->
             <!-- <a class="nav-link disabled">Settings</a> -->
           </div>
