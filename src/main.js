@@ -27,8 +27,8 @@ apiClient({
     // console.log(response);
     if (response.status === 200) {
       createApp(AppAuth).use(store).use(auth_router).use(pinia).mount("#app");
-      auth_router.push({ name: "Logbook" });
-      console.log("Successfully logged in");
+      auth_router.push({ name: "DashboardAdmin" });
+      // console.log("Successfully logged in");
     }
   })
   .catch((err) => {

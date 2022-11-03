@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-hover text-bg-light p-3">
+  <table class="table table-hover table-striped text-bg-light p-3">
     <thead class="table-dark">
       <tr>
         <th scope="col">#</th>
