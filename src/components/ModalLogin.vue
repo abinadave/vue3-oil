@@ -68,7 +68,7 @@
                 class="alert alert-danger"
                 role="alert"
               >
-                A simple danger alert—check it out!
+                Invalid Username or Password
               </div>
             </form>
           </div>
