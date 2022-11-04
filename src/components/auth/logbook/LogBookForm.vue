@@ -88,7 +88,7 @@
               @click="selectAmorPm('PM')"
               type="button"
               class="btn"
-              style="margin-left: -20px"
+              style="margin-left: -12px"
               :class="{ 'btn-outline-secondary': textTime == 'PM' }"
             >
               PM
