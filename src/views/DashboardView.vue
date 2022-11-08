@@ -110,7 +110,7 @@
                   />
                 </svg>
               </div>
-              <h3 class="fs-2">Availability</h3>
+              <h3 class="fs-2">Availability / Stocks</h3>
 
               <a href="#" class="icon-link d-inline-flex align-items-center">
                 <svg class="bi" width="1em" height="1em">
@@ -120,7 +120,7 @@
             </div>
           </div>
         </div>
-        <div class="feature col second-fs-2">
+        <!-- <div class="feature col second-fs-2">
           <div class="card text-bg-info mb-3">
             <div class="card-body">
               <div
@@ -151,7 +151,7 @@
               </a>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
