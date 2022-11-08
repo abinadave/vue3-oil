@@ -110,7 +110,9 @@
                   />
                 </svg>
               </div>
-              <h3 class="fs-2">Availability / Stocks</h3>
+              <h3 class="fs-2" @click="navigateTo('Stocks')">
+                Availability / Stocks
+              </h3>
 
               <a href="#" class="icon-link d-inline-flex align-items-center">
                 <svg class="bi" width="1em" height="1em">

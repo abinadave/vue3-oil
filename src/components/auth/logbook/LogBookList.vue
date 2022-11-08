@@ -6,7 +6,7 @@
         <th scope="col">Name</th>
         <th scope="col">Date</th>
         <th scope="col">Time</th>
-        <th scope="col">Purpose</th>
+        <th scope="col">Details</th>
       </tr>
     </thead>
     <tbody>

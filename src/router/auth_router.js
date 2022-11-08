@@ -46,6 +46,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/FinancialExpense.vue"),
   },
+  {
+    path: "/admin/Stocks",
+    name: "Stocks",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/StocksAvailability.vue"),
+  },
+  // vue3-oil-master/src/components/auth/stocks/StocksAvailability.vue
   // vue-oil/src/views/ReportOfEvents.vue
 ];
 

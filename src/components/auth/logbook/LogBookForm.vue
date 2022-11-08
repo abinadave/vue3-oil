@@ -98,7 +98,7 @@
       </div>
     </div>
     <div class="mb-3">
-      <label class="form-label">Purpose</label>
+      <label class="form-label">Activity Details</label>
       <textarea v-model="form.purpose" class="form-control" required />
     </div>
     <hr />
