@@ -1,8 +1,11 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+      style="background-color: #e3f2fd"
+    >
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="#" style="font-weight: bolder">
           <img class="logo" src="@/assets/img/icon.png" />A.O.A.G.M.S</a
         >
         <button
@@ -68,11 +71,39 @@ function redirectTo(routeName) {
   --bs-btn-padding-x: 0.5rem;
   --bs-btn-font-size: 0.75rem;
 }
-.nav-link {
+/* .nav-link {
+  cursor: pointer;
+  font-weight: lighter;
+  color: white;
+} */
+/* .nav-link:hover {
+  color: white;
+  cursor: pointer;
+  font-weight: bolder;
+} */
+
+a {
+  position: relative;
   cursor: pointer;
 }
-.nav-link:hover {
-  color: orange;
+
+a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #5f717a;
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
   cursor: pointer;
 }
 </style>
