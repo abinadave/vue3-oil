@@ -24,6 +24,10 @@
             <a class="nav-link" @click="redirectTo('DashboardAdmin')">Home </a>
             <a class="nav-link" @click="redirectTo('Logbook')">Logs</a>
             <a class="nav-link" @click="redirectTo('Monitoring')">Monitoring</a>
+            <a class="nav-link" @click="redirectTo('Stocks')"
+              >Availability/Stocks</a
+            >
+
             <a class="nav-link" @click="redirectTo('Financial')"
               >Financial & Expense</a
             >
